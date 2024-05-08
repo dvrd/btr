@@ -1,0 +1,22 @@
+{
+  name: "btr",
+  version: "0.1.0",
+  host: "github.com",
+  owner: "dvrd",
+  builds: {
+    release: {
+      src: "src",
+      collections: {
+      	libs: "libs",
+	src: "src"
+      },
+      optim: "speed",
+      separate_modules: true
+    },
+    temple: {
+      src: "libs/temple/cli",
+      optim: "speed",
+      separate_modules: true
+    }
+  }
+}
