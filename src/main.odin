@@ -103,7 +103,7 @@ main :: proc() {
 	// Faster and more portable (files are in the executable) is this:
 	http.route_get(&r, "/favicon%.ico", http.handler(proc(_: ^http.Request, r: ^http.Response) {
 			http.headers_set_unsafe(&r.headers, "cache-control", STATIC_CACHE_CONTROL)
-			http.respond_file_content(r, "favicon.ico", #load("static/favicon.ico"))
+			http.respond_file_content(r, "favicon.ico", #load("../static/favicon.ico"))
 		}))
 	http.route_get(
 		&r,
@@ -113,7 +113,7 @@ main :: proc() {
 				http.respond_file_content(
 					r,
 					"htmx@1.9.5.min.js",
-					#load("static/htmx@1.9.5.min.js"),
+					#load("../static/htmx@1.9.5.min.js"),
 				)
 			}),
 	)
@@ -125,7 +125,7 @@ main :: proc() {
 				http.respond_file_content(
 					r,
 					"todomvc-app-css@2.4.2-index.css",
-					#load("static/todomvc-app-css@2.4.2-index.css"),
+					#load("../static/todomvc-app-css@2.4.2-index.css"),
 				)
 			}),
 	)

@@ -43,13 +43,13 @@ This currently requires the temple code to be in your project, and only used by 
     * The first argument is the path to the root of your project (where to look for templates)
     * The second argument is the path to temple itself
 
-The syntax is most similar/works best with syntax highlighting for the Twig templating engine, so I suggest ending template filenames with `.temple.twig`.
+The syntax is most similar/works best with syntax highlighting for the Twig templating engine, so I suggest ending template filenames with `.tmpl`.
 That is a suggestion and you can call template files however you like.
 
 You can then use the templates like this:
 
 ```twig
-<!-- templates/home.temple.twig -->
+<!-- templates/home.tmpl -->
 
 Hello, {{ this.name }}!
 
@@ -73,7 +73,7 @@ Home_This :: struct {
     count: int,
 }
 
-home := temple.compiled("templates/home.temple.twig", Home_This)
+home := temple.compiled("templates/home.tmpl", Home_This)
 
 // Or inline templates:
 // home := temple.compiled_inline(`Hello, {{ this.name }}`, Home_This)
@@ -83,7 +83,7 @@ main :: proc() {
 	home.with(w, {"Laytan", 10})
 
     // Output:
-    // <!-- templates/home.temple.twig -->
+    // <!-- templates/home.tmpl -->
     //
     // Hello, Laytan!!
     //
@@ -102,10 +102,10 @@ package temple
 import __temple_io "core:io"
 
 compiled :: proc($path: string, $T: typeid) -> Compiled(T) {
-	when path == "templates/home.temple.twig" {
+	when path == "templates/home.tmpl" {
 		return {
 			with = proc(__temple_w: __temple_io.Writer, this: T) -> (__temple_n: int, __temple_err: __temple_io.Error) {
-				__temple_n += __temple_io.write_string(__temple_w, "<!-- templates/home.temple.twig -->\n\nHello, ") or_return /* 1:1 in template */
+				__temple_n += __temple_io.write_string(__temple_w, "<!-- templates/home.tmpl -->\n\nHello, ") or_return /* 1:1 in template */
 				__temple_n += __temple_write_escaped_string(__temple_w, this.name) or_return /* 3:8 in template */
 				__temple_n += __temple_io.write_string(__temple_w, "!\n") or_return /* 3:23 in template */
 				if this.name == "Laytan" { /* 5:1 in template */
@@ -174,7 +174,7 @@ t := temple.compiled_inline(`{% for book in books %} {{ book.title }} {% end %}`
 // Embed can be used to embed other templates into the current one, paths are relative to the current template (or the file that called `compiled_inline` with inline templates).
 
 // The embedded template will have the same `this` as the current template by default.
-t := temple.compiled_inline(`{% embed "header.temple.twig" %}`, struct{})
+t := temple.compiled_inline(`{% embed "header.tmpl" %}`, struct{})
 
 // Changing the `this` inside the embedded template can be done with the `with` keyword.
-t := temple.compiled_inline(`{% embed "header.temple.twig" with this.header %}` struct{ header: struct{ title: string } })
+t := temple.compiled_inline(`{% embed "header.tmpl" with this.header %}` struct{ header: struct{ title: string } })

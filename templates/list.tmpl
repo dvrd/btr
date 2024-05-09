@@ -12,14 +12,14 @@
 		<label for="toggle-all">Mark all as complete</label>
 		<ul class="todo-list">
 			{% for todo in this.todos %}
-				{% embed "todo.temple.twig" with todo %}
+				{% embed "todo.tmpl" with todo %}
 			{% end %}
 		</ul>
 	</section>
 
 	<footer class="footer">
 
-		{% embed "count.temple.twig" with this.count %}
+		{% embed "count.tmpl" with this.count %}
 
 		<ul class="filters">
 			<li>
