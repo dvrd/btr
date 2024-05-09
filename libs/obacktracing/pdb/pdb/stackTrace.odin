@@ -1,3 +1,4 @@
+//+build windows
 package pdb
 import "core:intrinsics"
 import "core:io"

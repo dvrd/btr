@@ -119,14 +119,10 @@ main :: proc() {
 	)
 	http.route_get(
 		&r,
-		"/todomvc%-app%-css@2%.4%.2%-index%.css",
+		"/styles%.css",
 		http.handler(proc(_: ^http.Request, r: ^http.Response) {
 				http.headers_set_unsafe(&r.headers, "cache-control", STATIC_CACHE_CONTROL)
-				http.respond_file_content(
-					r,
-					"todomvc-app-css@2.4.2-index.css",
-					#load("../static/todomvc-app-css@2.4.2-index.css"),
-				)
+				http.respond_file_content(r, "styles.css", #load("../static/styles.css"))
 			}),
 	)
 
